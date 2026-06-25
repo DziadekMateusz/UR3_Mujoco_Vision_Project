@@ -1,0 +1,46 @@
+project:
+
+  name: UR3_Vision_RL_Project
+
+classes:
+
+  - earphones
+  - mouse
+  - ram
+
+cnn:
+
+  image_size: 224
+
+  epochs: 100
+
+  batch_size: 8
+
+  model_output:
+    models/cnn/tm_cnn.keras
+
+yolo:
+
+  model: yolov8n.pt
+
+  epochs: 100
+
+  imgsz: 640
+
+  batch: 8
+
+  output:
+    models/yolo
+
+rl:
+
+  qtable:
+    rl/q_table.pkl
+
+mujoco:
+
+  scene:
+    mujoco/scene.xml
+
+  robot:
+    mujoco/ur3.xml

@@ -1,0 +1,21 @@
+camera:
+
+  source: 0
+
+  width: 1280
+  height: 720
+
+  fps: 30
+
+verification:
+
+  cnn_threshold: 0.80
+
+detection:
+
+  yolo_confidence: 0.50
+
+save:
+
+  accepted_detections: true
+  folder: results/accepted
