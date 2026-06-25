@@ -1,0 +1,3 @@
+0 headphones
+1 mouse
+2 ram
