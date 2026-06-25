@@ -1,0 +1,10 @@
+train: C:/Users/DvD11/Documents/MCH Semestr 1 Magisterka/Metody inteligentne/UR3_Vision_RL_Project/datasets/detection/images/train
+
+val: C:/Users/DvD11/Documents/MCH Semestr 1 Magisterka/Metody inteligentne/UR3_Vision_RL_Project/datasets/detection/images/val
+
+nc: 3
+
+names:
+  0: earphones
+  1: mouse
+  2: ram
