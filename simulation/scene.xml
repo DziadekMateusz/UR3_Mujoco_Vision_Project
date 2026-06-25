@@ -1,0 +1,69 @@
+<mujoco model="ur3 scene">
+
+    <include file="ur3.xml"/>
+
+    <statistic center="0.3 0 0.4"
+               extent="1.0"/>
+
+    <visual>
+
+        <headlight diffuse="1 1 1"
+                   ambient="0.3 0.3 0.3"
+                   specular="0.2 0.2 0.2"/>
+
+        <rgba haze="0.05 0.1 0.15 1"/>
+
+        <global azimuth="135"
+                elevation="-20"/>
+
+    </visual>
+
+    <asset>
+
+        <texture
+            type="skybox"
+            builtin="gradient"
+            rgb1="0.6 0.8 1.0"
+            rgb2="0.1 0.2 0.3"
+            width="512"
+            height="3072"/>
+
+        <texture
+            type="2d"
+            name="groundplane"
+            builtin="checker"
+            rgb1="0.4 0.4 0.4"
+            rgb2="0.2 0.2 0.2"
+            width="300"
+            height="300"/>
+
+        <material
+            name="groundplane"
+            texture="groundplane"
+            texrepeat="5 5"/>
+
+    </asset>
+
+    <worldbody>
+
+        <light pos="0 0 3"/>
+
+        <geom
+            name="floor"
+            type="plane"
+            size="0 0 0.05"
+            material="groundplane"/>
+
+        <body name="table">
+
+            <geom
+                type="box"
+                pos="0.35 0 0.08"
+                size="0.20 0.15 0.08"
+                rgba="0.6 0.4 0.2 1"/>
+
+        </body>
+
+    </worldbody>
+
+</mujoco>

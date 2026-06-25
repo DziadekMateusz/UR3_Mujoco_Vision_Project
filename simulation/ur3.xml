@@ -1,0 +1,107 @@
+<mujoco model="ur3">
+  <compiler angle="radian" meshdir="../assets"/>
+  
+  <option integrator="implicit" timestep="0.005"/>
+  
+  <default>
+    <default class="ur3">
+      <material specular="0.5" shininess="0.25"/>
+      <joint axis="0 1 0" range="-3.14159 3.14159" armature="0.1" damping="5.0"/>
+      <general gaintype="fixed" biastype="affine" ctrlrange="-3.1415 3.1415" gainprm="2000" biasprm="0 -2000 -400" forcerange="-500 500"/>
+      <default class="size3">
+        <default class="size3_limited">
+          <joint range="-1.5708 1.5708"/>
+          <general ctrlrange="-1.5708 1.5708"/>
+        </default>
+      </default>
+      <default class="size1">
+        <general gainprm="5000" biasprm="0 -5000 -1000" forcerange="-500 500"/>
+      </default>
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+      </default>
+      <default class="collision">
+        <geom type="capsule" group="3" size="0.03"/>
+        <default class="eef_collision">
+          <geom type="cylinder" size="0.02"/>
+        </default>
+      </default>
+      <site size="0.001" rgba="0.5 0.5 0.5 0.3" group="4"/>
+    </default>
+  </default>
+
+  <asset>
+    <mesh name="ur3_base" file="ur3_base.obj" />
+    <mesh name="ur3_shoulder" file="ur3_shoulder.obj" />
+    <mesh name="ur3_upperarm" file="ur3_upperarm.obj" />
+    <mesh name="ur3_forearm" file="ur3_forearm.obj" />
+    <mesh name="ur3_wrist1" file="ur3_wrist1.obj" />
+    <mesh name="ur3_wrist2" file="ur3_wrist2.obj" />
+    <mesh name="ur3_wrist3" file="ur3_wrist3.obj" />
+  </asset>
+
+  <worldbody>
+    <site
+      name="earphones_target"
+      pos="0.25 0.10 0.19"
+      size="0.03"
+      rgba="0 0 1 1"/>
+
+    <site
+      name="mouse_target"
+      pos="0.25 0.00 0.19"
+      size="0.03"
+      rgba="0 1 0 1"/>
+
+    <site
+      name="ram_target"
+      pos="0.25 -0.10 0.19"
+      size="0.03"
+      rgba="1 0 0 1"/>
+    <body name="base" pos="0 0 0" childclass="ur3">
+      <inertial mass="5.0" pos="0 0 0.05" diaginertia="0.01 0.01 0.01"/>
+      <geom type="mesh" mesh="ur3_base"/>
+      <body name="shoulder_link" pos="0 0 0.152">
+        <inertial mass="3.0" pos="0 0 0.05" diaginertia="0.01 0.01 0.01"/>
+        <joint name="shoulder_pan_joint" axis="0 0 1" range="-2.5 2.5" damping="0.001"/>
+        <geom type="mesh" mesh="ur3_shoulder"/>
+        <body name="upper_arm_link" pos="0 0.1198 0">
+          <inertial mass="3.42" pos="0 0 0.1" diaginertia="0.01 0.01 0.01"/>
+          <joint name="shoulder_lift_joint" axis="0 1 0" range="-2.5 2.5"/>
+          <geom type="mesh" mesh="ur3_upperarm"/>
+          <body name="forearm_link" pos="0 -0.0925 0.24365">
+            <inertial mass="1.5" pos="0 0 0.08" diaginertia="0.01 0.01 0.01"/>
+            <joint name="elbow_joint" axis="0 1 0" range="-2.5 2.5"/>
+            <geom type="mesh" mesh="ur3_forearm"/>
+            <body name="wrist_1_link" pos="0 0 0.21325">
+              <inertial mass="3.42" pos="0 0 0.1" diaginertia="0.01 0.01 0.01"/>
+              <joint name="wrist_1_joint" axis="0 1 0" range="-2.5 2.5"/>
+              <geom type="mesh" mesh="ur3_wrist1"/>
+              <body name="wrist_2_link" pos="0 0.08505 0">
+                <inertial mass="3.42" pos="0 0 0.1" diaginertia="0.01 0.01 0.01"/>
+                <joint name="wrist_2_joint" axis="0 0 1" range="-2.5 2.5"/>
+                <geom type="mesh" mesh="ur3_wrist2"/>
+                <body name="wrist_3_link" pos="0 0 0.08535">
+                  <site name="tcp_site" pos="0 0.12 0" size="0.01" rgba="1 1 0 1"/>
+		  <geom name="tcp_geom" type="box" pos="0 0.12 0" size="0.02 0.02 0.02" rgba="0 1 0 1"/>
+                  <inertial mass="3.42" pos="0 0 0.1" diaginertia="0.01 0.01 0.01"/>
+                  <joint name="wrist_3_joint" axis="0 1 0" range="-2.5 2.5"/>
+                  <geom type="mesh" mesh="ur3_wrist3"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <general class="size1" name="shoulder_pan" joint="shoulder_pan_joint" gainprm="1000" biasprm="0 -1000 -200" forcerange="-100 100"/>
+    <general class="size3" name="shoulder_lift" joint="shoulder_lift_joint" gainprm="1000" biasprm="0 -1000 -200" forcerange="-100 100"/>
+    <general class="size3_limited" name="elbow" joint="elbow_joint"/>
+    <general class="size1" name="wrist_1" joint="wrist_1_joint"/>
+    <general class="size1" name="wrist_2" joint="wrist_2_joint"/>
+    <general class="size1" name="wrist_3" joint="wrist_3_joint"/>
+  </actuator>
+</mujoco>
